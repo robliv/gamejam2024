@@ -49,5 +49,5 @@ jobs:
           apt-get update && apt-get install -y curl
           curl -X POST \
             -H "Content-Type: application/json" \
-            -d "{\"content\": \"New version was deployed to GitHub Pages: https://robliv.github.io/godot-cardgame-sample/\"}" \
+            -d "{\"content\": \"New version was deployed to GitHub Pages: https://robliv.github.io/gamejam2024/\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
