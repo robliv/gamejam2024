@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  GODOT_VERSION: 4.2.2
+  GODOT_VERSION: 4.3
   EXPORT_NAME: GmaeJamGame2024
   PROJECT_PATH: project
 
@@ -20,7 +20,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-20.04
     container:
-      image: barichello/godot-ci:4.2.2
+      image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
