@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cn52ud82cguqf"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(578, 324)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 1158.0
+offset_bottom = 652.0
+color = Color(0.733333, 0.513726, 1, 0.698039)
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 488.0
+offset_top = 241.0
+offset_right = 667.0
+offset_bottom = 314.0
+text = "PLAY"
