@@ -1,38 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1y4aagwioo61"]
+[gd_scene load_steps=4 format=3 uid="uid://d1y4aagwioo61"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uupb8"]
-size = Vector2(13, 450)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gvj2"]
-size = Vector2(702.25, 14.5)
-
-[sub_resource type="Gradient" id="Gradient_k8tfg"]
-offsets = PackedFloat32Array(0, 0.0120482, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.512048, 0.512048, 0.512048, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_gqcl1"]
-gradient = SubResource("Gradient_k8tfg")
-fill_from = Vector2(0, 1)
-
-[sub_resource type="Gradient" id="Gradient_2uw7d"]
-offsets = PackedFloat32Array(0, 0.0060241, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.722892, 0.722892, 0.722892, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_f5nyj"]
-gradient = SubResource("Gradient_2uw7d")
-fill_from = Vector2(0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2etnx"]
-size = Vector2(64, 63)
-
-[sub_resource type="Gradient" id="Gradient_vm63j"]
-offsets = PackedFloat32Array(0, 0.746988, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.819277, 0.819277, 0.819277, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_0g32y"]
-gradient = SubResource("Gradient_vm63j")
+[ext_resource type="PackedScene" uid="uid://btfdqd48x8bi1" path="res://scenes/game_room.tscn" id="2_7c3w0"]
+[ext_resource type="PackedScene" uid="uid://bkvid3hir38ru" path="res://scenes/guard.tscn" id="3_j82o4"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -52,14 +22,6 @@ color = Color(0, 0, 0, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(580, 329)
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 485.0
-offset_top = 83.0
-offset_right = 659.0
-offset_bottom = 106.0
-text = "This is the game scene"
-
 [node name="MenuButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 18.0
@@ -70,41 +32,8 @@ text = "Quit To Menu"
 
 [node name="GameRoot" type="Node2D" parent="."]
 
-[node name="Box" type="StaticBody2D" parent="GameRoot"]
+[node name="GameRoom" parent="GameRoot" instance=ExtResource("2_7c3w0")]
 
-[node name="WallLeft" type="CollisionShape2D" parent="GameRoot/Box"]
-position = Vector2(204, 395)
-shape = SubResource("RectangleShape2D_uupb8")
-
-[node name="WallRight" type="CollisionShape2D" parent="GameRoot/Box"]
-position = Vector2(894, 391)
-shape = SubResource("RectangleShape2D_uupb8")
-
-[node name="WallBottom" type="CollisionShape2D" parent="GameRoot/Box"]
-position = Vector2(550.875, 612.25)
-shape = SubResource("RectangleShape2D_1gvj2")
-
-[node name="WallLeftSprite" type="Sprite2D" parent="GameRoot/Box"]
-position = Vector2(204, 392.5)
-scale = Vector2(0.1875, 6.98437)
-texture = SubResource("GradientTexture2D_gqcl1")
-
-[node name="WallRightSprite" type="Sprite2D" parent="GameRoot/Box"]
-position = Vector2(896, 392.5)
-scale = Vector2(0.250001, 7.04687)
-texture = SubResource("GradientTexture2D_gqcl1")
-
-[node name="WallBottonSprite" type="Sprite2D" parent="GameRoot/Box"]
-position = Vector2(551, 612.25)
-scale = Vector2(11, 0.195313)
-texture = SubResource("GradientTexture2D_f5nyj")
-
-[node name="FruitPlaceholder" type="RigidBody2D" parent="GameRoot"]
-position = Vector2(868, 70)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameRoot/FruitPlaceholder"]
-shape = SubResource("RectangleShape2D_2etnx")
-
-[node name="Sprite2D" type="Sprite2D" parent="GameRoot/FruitPlaceholder"]
-texture = SubResource("GradientTexture2D_0g32y")
+[node name="Guard" parent="GameRoot" instance=ExtResource("3_j82o4")]
+position = Vector2(349, 324)
+scale = Vector2(3, 3)
