@@ -43,6 +43,11 @@ jobs:
       - name: GitHub Pages Deployment
         id: deployment
         uses: actions/deploy-pages@v4 
+      - name: TEST
+        run: |
+          pwd
+          ls -latr
+          ls build/web       
       - name: Itch.io deployment
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
