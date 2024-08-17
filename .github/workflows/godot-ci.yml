@@ -42,17 +42,12 @@ jobs:
           path: build/web
       - name: GitHub Pages Deployment
         id: deployment
-        uses: actions/deploy-pages@v4 
-      - name: TEST
-        run: |
-          pwd
-          ls -latr
-          ls build/web       
+        uses: actions/deploy-pages@v4      
       - name: Itch.io deployment
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butlerApiKey: ${{secrets.BUTLER_API_KEY}}
-          gameData: '../build/web/index.html'
+          gameData: 'build/web'
           itchUsername: 'wackogames'
           itchGameId: gamejamgame2024
           buildChannel: 'html5'
@@ -62,5 +57,5 @@ jobs:
           apt-get update && apt-get install -y curl
           curl -X POST \
             -H "Content-Type: application/json" \
-            -d "{\"content\": \"New version was deployed to GitHub Pages. Changes: ${{ github.event.head_commit.message }} - https://robliv.github.io/gamejam2024/\"}" \
+            -d "{\"content\": \"New version deployed: ${{ github.event.head_commit.message }}\nGitHub Pages: https://robliv.github.io/gamejam2024/ \nItch.io: https://wackogames.itch.io/gamejamgame2024?secret=hpauBG5dgaweCMSejyeFRNC3k\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
