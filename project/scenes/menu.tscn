@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cn52ud82cguqf"]
+[gd_scene load_steps=2 format=3 uid="uid://cn52ud82cguqf"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_jqdk2"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -9,6 +11,7 @@ offset_top = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jqdk2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, 324)
