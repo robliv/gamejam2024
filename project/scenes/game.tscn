@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://d1y4aagwioo61"]
 
-[ext_resource type="Script" path="res://scenes/game.gd" id="1_fkfh4"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uupb8"]
 size = Vector2(13, 450)
@@ -100,11 +100,11 @@ scale = Vector2(11, 0.195313)
 texture = SubResource("GradientTexture2D_f5nyj")
 
 [node name="FruitPlaceholder" type="RigidBody2D" parent="GameRoot"]
+position = Vector2(868, 70)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameRoot/FruitPlaceholder"]
-position = Vector2(226, 91)
 shape = SubResource("RectangleShape2D_2etnx")
 
 [node name="Sprite2D" type="Sprite2D" parent="GameRoot/FruitPlaceholder"]
-position = Vector2(226, 91)
 texture = SubResource("GradientTexture2D_0g32y")

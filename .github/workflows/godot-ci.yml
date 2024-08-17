@@ -43,6 +43,14 @@ jobs:
       - name: GitHub Pages Deployment
         id: deployment
         uses: actions/deploy-pages@v4 
+      - name: Itch.io deployment
+        uses: KikimoraGames/itch-publish@v0.0.3
+        with:
+          butlerApiKey: ${{secrets.BUTLER_API_KEY}}
+          gameData: ../build/web/index.html
+          itchUsername: ${{env.ITCH_USERNAME}}
+          itchGameId: gamejamgame2024
+          buildChannel: 'html5'
       - name: Send Discord notification
         if: success()
         run: |

@@ -11,3 +11,5 @@ project/*.translation
 project/.mono/
 project/data_*/
 project/mono_crash.*.json
+
+project/export
