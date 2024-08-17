@@ -57,5 +57,5 @@ jobs:
           apt-get update && apt-get install -y curl
           curl -X POST \
             -H "Content-Type: application/json" \
-            -d "{\"content\": \"New version was deployed to GitHub Pages: https://robliv.github.io/gamejam2024/\"}" \
+            -d "{\"content\": \"New version was deployed to GitHub Pages. Changes: ${{ github.event.head_commit.message }} - https://robliv.github.io/gamejam2024/\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
