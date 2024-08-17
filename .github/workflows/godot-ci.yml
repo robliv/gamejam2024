@@ -47,8 +47,8 @@ jobs:
         uses: KikimoraGames/itch-publish@v0.0.3
         with:
           butlerApiKey: ${{secrets.BUTLER_API_KEY}}
-          gameData: ../build/web/index.html
-          itchUsername: ${{env.ITCH_USERNAME}}
+          gameData: '../build/web/index.html'
+          itchUsername: 'wackogames'
           itchGameId: gamejamgame2024
           buildChannel: 'html5'
       - name: Send Discord notification
