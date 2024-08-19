@@ -19,7 +19,10 @@ func remove_child_nodes():
 		get_node("Menu").queue_free()
 	if get_node_or_null("Game"):
 		print("Removing child node: game")
-		get_node("Game").queue_free()		
+		get_node("Game").queue_free()
+	if get_node_or_null("PostGameScreen"):
+		print("Removing child node: PostGameScreengame")
+		get_node("PostGameScreen").queue_free()		
 
 func _on_request_load_level(new_scene_path):
 	print("Received new scene request signal: " + str(new_scene_path))

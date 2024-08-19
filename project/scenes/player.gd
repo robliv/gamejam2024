@@ -2,12 +2,23 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const SCALE_FACTOR = 1.2 # Adjust this factor to scale the character up or down.
+const MAX_SIZE = 9
+
+var current_size = 1
+
 var audio: AudioStreamPlayer2D
+
+signal request_endgame
 
 func _ready() -> void:
 	audio = $AudioStreamPlayer2D
 
 func _physics_process(delta: float) -> void:
+	
+	# end current game level if max size is reached
+	if(current_size>MAX_SIZE):
+		end_game()
+		
 	# Get the input direction and handle the movement.
 	var direction := Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
@@ -27,8 +38,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):  # Default key is spacebar.
 		scale_character()
 
-
 func scale_character() -> void:
 	audio.play()
 	# Scale the character by the scale factor.
 	self.scale *= SCALE_FACTOR
+	current_size += 1
+
+func end_game():
+	Globals.set_game_result_won(true)
+	print("setting game_result_win to true")
+	emit_signal("request_endgame")

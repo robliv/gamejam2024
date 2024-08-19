@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://d1y4aagwioo61"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
-[ext_resource type="PackedScene" uid="uid://btfdqd48x8bi1" path="res://scenes/game_room.tscn" id="2_7c3w0"]
-[ext_resource type="PackedScene" uid="uid://q4ycp4t54kix" path="res://scenes/player.tscn" id="3_3iinj"]
-[ext_resource type="PackedScene" uid="uid://bkvid3hir38ru" path="res://scenes/guard.tscn" id="3_j82o4"]
+[ext_resource type="PackedScene" path="res://scenes/game_room.tscn" id="2_7c3w0"]
+[ext_resource type="PackedScene" uid="uid://hmgof7efpjlm" path="res://scenes/player.tscn" id="3_3iinj"]
+[ext_resource type="PackedScene" path="res://scenes/guard.tscn" id="3_j82o4"]
 [ext_resource type="AudioStream" uid="uid://dw4p4ssjgnhb3" path="res://assets/Dark sneaky ambient.mp3" id="5_jtqwn"]
 
 [node name="Game" type="Control"]
@@ -24,14 +24,6 @@ color = Color(0, 0, 0, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(580, 329)
 
-[node name="MenuButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 18.0
-offset_right = 135.0
-offset_bottom = 51.0
-text = "Quit To Menu"
-
 [node name="GameRoot" type="Node2D" parent="."]
 
 [node name="GameRoom" parent="GameRoot" instance=ExtResource("2_7c3w0")]
@@ -46,3 +38,39 @@ scale = Vector2(3, 3)
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_jtqwn")
 autoplay = true
+
+[node name="MenuButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -1.0
+offset_right = 122.0
+offset_bottom = 30.0
+text = "Quit To Menu"
+
+[node name="CurrentLevelLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 1.0
+offset_right = 205.0
+offset_bottom = 30.0
+text = "LEVEL X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FlashlightSizeLabel" type="Label" parent="."]
+offset_left = 217.0
+offset_top = 2.0
+offset_right = 348.0
+offset_bottom = 31.0
+text = "FLASHLIGHT SIZE: X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemySpeedLabel" type="Label" parent="."]
+offset_left = 393.0
+offset_top = 2.0
+offset_right = 524.0
+offset_bottom = 31.0
+text = "ENEMY SPEED: X"
+horizontal_alignment = 1
+vertical_alignment = 1
