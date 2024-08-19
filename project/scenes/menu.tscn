@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cn52ud82cguqf"]
+[gd_scene load_steps=5 format=3 uid="uid://cn52ud82cguqf"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_jqdk2"]
 [ext_resource type="Texture2D" uid="uid://basuwebw25ykd" path="res://assets/main_menu_ballon.png" id="2_62rcp"]
+[ext_resource type="Texture2D" uid="uid://fbo8lgy8lskj" path="res://assets/menu_background.jpg" id="2_l0cno"]
+[ext_resource type="AudioStream" uid="uid://bbhmmop6rp7q1" path="res://assets/GameMusic_ForestTheme_24.mp3" id="4_jmwwv"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -17,42 +19,34 @@ script = ExtResource("1_jqdk2")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, 324)
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 1.0
-offset_right = 1158.0
-offset_bottom = 652.0
-color = Color(0.733333, 0.513726, 1, 0.698039)
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(580, 324.25)
+scale = Vector2(2.55556, 2.21672)
+texture = ExtResource("2_l0cno")
 
 [node name="PlayButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 936.0
-offset_top = 416.0
-offset_right = 1115.0
-offset_bottom = 466.0
+offset_left = 950.0
+offset_top = 500.0
+offset_right = 1110.0
+offset_bottom = 540.0
 text = "PLAY"
 
 [node name="PlayButton2" type="Button" parent="."]
 layout_mode = 0
-offset_left = 937.0
-offset_top = 474.0
-offset_right = 1116.0
-offset_bottom = 524.0
+offset_left = 950.0
+offset_top = 550.0
+offset_right = 1110.0
+offset_bottom = 590.0
 text = "CREDITS"
 
 [node name="PlayButton3" type="Button" parent="."]
 layout_mode = 0
-offset_left = 937.0
-offset_top = 533.0
-offset_right = 1116.0
-offset_bottom = 583.0
+offset_left = 950.0
+offset_top = 600.0
+offset_right = 1110.0
+offset_bottom = 640.0
 text = "EXIT"
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(249, 279)
-scale = Vector2(5, 5)
-texture = ExtResource("2_62rcp")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(600, 300)
@@ -68,3 +62,12 @@ theme_override_font_sizes/normal_font_size = 60
 theme_override_font_sizes/bold_font_size = 20
 text = "I was built to scale...
 ...and fly away!"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_jmwwv")
+autoplay = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(248, 317)
+scale = Vector2(5, 5)
+texture = ExtResource("2_62rcp")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dw4p4ssjgnhb3"
+path="res://.godot/imported/Dark sneaky ambient.mp3-f1df9ebbbeaeabe1b090cae1e11f5cea.mp3str"
+
+[deps]
+
+source_file="res://assets/Dark sneaky ambient.mp3"
+dest_files=["res://.godot/imported/Dark sneaky ambient.mp3-f1df9ebbbeaeabe1b090cae1e11f5cea.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

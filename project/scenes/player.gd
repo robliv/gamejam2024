@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const SCALE_FACTOR = 1.2 # Adjust this factor to scale the character up or down.
+var audio: AudioStreamPlayer2D
+
+func _ready() -> void:
+	audio = $AudioStreamPlayer2D
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement.
@@ -25,5 +29,6 @@ func _physics_process(delta: float) -> void:
 
 
 func scale_character() -> void:
+	audio.play()
 	# Scale the character by the scale factor.
 	self.scale *= SCALE_FACTOR

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1y4aagwioo61"]
+[gd_scene load_steps=6 format=3 uid="uid://d1y4aagwioo61"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
 [ext_resource type="PackedScene" uid="uid://btfdqd48x8bi1" path="res://scenes/game_room.tscn" id="2_7c3w0"]
-[ext_resource type="PackedScene" uid="uid://bru46gnnwb7uv" path="res://scenes/player.tscn" id="3_3iinj"]
+[ext_resource type="PackedScene" uid="uid://q4ycp4t54kix" path="res://scenes/player.tscn" id="3_3iinj"]
 [ext_resource type="PackedScene" uid="uid://bkvid3hir38ru" path="res://scenes/guard.tscn" id="3_j82o4"]
+[ext_resource type="AudioStream" uid="uid://dw4p4ssjgnhb3" path="res://assets/Dark sneaky ambient.mp3" id="5_jtqwn"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -41,3 +42,7 @@ position = Vector2(221, 164)
 [node name="Guard" parent="GameRoot" instance=ExtResource("3_j82o4")]
 position = Vector2(349, 324)
 scale = Vector2(3, 3)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_jtqwn")
+autoplay = true
