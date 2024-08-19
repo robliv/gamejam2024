@@ -1,13 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkvid3hir38ru"]
+[gd_scene load_steps=4 format=3 uid="uid://bkvid3hir38ru"]
 
-[ext_resource type="Texture2D" uid="uid://dtv8moqqnp8wx" path="res://assets/Character_animation/monsters_idle/skull/v1/skull_v1_1.png" id="1_jrk7s"]
+[ext_resource type="Script" path="res://scenes/guard.gd" id="1_58cw7"]
+[ext_resource type="Texture2D" uid="uid://b8ed6yr1l8x6o" path="res://assets/guard.png" id="1_rret1"]
+[ext_resource type="Texture2D" uid="uid://bkfkwmyty8odr" path="res://assets/light.png" id="2_oo7hn"]
 
 [node name="Guard" type="Node2D"]
+script = ExtResource("1_58cw7")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_jrk7s")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_rret1")
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-energy = 0.1
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 5.0
+texture = ExtResource("2_oo7hn")
+offset = Vector2(50, 0)
