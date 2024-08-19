@@ -1,19 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkvid3hir38ru"]
+[gd_scene load_steps=5 format=3 uid="uid://bkvid3hir38ru"]
 
 [ext_resource type="Script" path="res://scenes/guard.gd" id="1_58cw7"]
 [ext_resource type="Texture2D" uid="uid://b8ed6yr1l8x6o" path="res://assets/guard.png" id="1_rret1"]
 [ext_resource type="Texture2D" uid="uid://bkfkwmyty8odr" path="res://assets/light.png" id="2_oo7hn"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iri6e"]
+radius = 8.0
+
 [node name="Guard" type="Node2D"]
-script = ExtResource("1_58cw7")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+collision_layer = 2
+script = ExtResource("1_58cw7")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_rret1")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="CharacterBody2D"]
 energy = 5.0
 texture = ExtResource("2_oo7hn")
 offset = Vector2(50, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+light_mask = 2
+shape = SubResource("CircleShape2D_iri6e")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_rret1")

@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 
 # Define possible states for the enemy
 enum EnemyState { MOVE_FORWARD, STAND, CHANGE_DIRECTION }
@@ -17,18 +17,27 @@ func _ready() -> void:
 	# Create and start the timer
 	state_timer = Timer.new()
 	state_timer.wait_time = 2.0
-	state_timer.timeout.connect(_on_state_timer_timeout)  # Correct connection method
+	state_timer.timeout.connect(_on_state_timer_timeout)
 	add_child(state_timer)
 	state_timer.start()
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Handle enemy movement based on the current state
 	match current_state:
 		EnemyState.MOVE_FORWARD:
-			position += direction * speed * delta
+			# Set the velocity based on the direction and speed
+			velocity = direction * speed
+			move_and_slide()  # Move the enemy and handle collisions
+			
+			# Check for collisions and react accordingly
+			if is_on_wall():
+				# If the enemy hits a wall, change to stand or change direction
+				current_state = EnemyState.STAND  # or EnemyState.CHANGE_DIRECTION
+
 		EnemyState.STAND:
 			# Do nothing, the enemy stands still
 			pass
+
 		EnemyState.CHANGE_DIRECTION:
 			# Direction change is handled in the timeout function
 			pass
@@ -37,7 +46,7 @@ func _process(delta: float) -> void:
 func _on_state_timer_timeout() -> void:
 	# Randomly select the next state
 	var random_state = randi() % 3
-	current_state = random_state  # Directly assign the random state
+	current_state = random_state
 	
 	if current_state == EnemyState.CHANGE_DIRECTION:
 		# Randomly choose a new direction and rotate the enemy accordingly
