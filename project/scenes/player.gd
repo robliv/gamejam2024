@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 300.0
-const DASH_SPEED = 600.0  # Dash speed is higher than normal speed
+const DASH_SPEED = 900.0  # Dash speed is higher than normal speed
 const DASH_DURATION = 0.2
 const SCALE_FACTOR = 1.2 # Adjust this factor to scale the character up or down.
 const MAX_SIZE = 5
@@ -9,6 +9,7 @@ const MAX_SIZE = 5
 var current_size = 1
 var is_dashing = false
 var dash_time_left = 0.0
+var dash_direction = Vector2.ZERO
 
 var enflate: AudioStreamPlayer2D
 var deflate: AudioStreamPlayer2D
@@ -32,11 +33,14 @@ func _physics_process(delta: float) -> void:
 	)
 
 	# Handle dash
-	if Input.is_action_just_pressed("ui_shift") && Globals.current_ballon_size > 0:  # Replace "ui_shift" with your dash key
+	# Handle dash
+	if Input.is_action_just_pressed("ui_shift") and Globals.current_ballon_size > 0:  # Replace "ui_shift" with your dash key
 		is_dashing = true
+		self.scale /= SCALE_FACTOR
 		Globals.current_ballon_size -= 1
 		current_size -= 1
 		dash_time_left = DASH_DURATION
+		dash_direction = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()  # Generate a random direction
 		deflate.play()
 
 	if is_dashing:
@@ -45,13 +49,13 @@ func _physics_process(delta: float) -> void:
 			is_dashing = false
 
 	# Set the velocity based on the current dash state
-	if direction != Vector2.ZERO:
-		if is_dashing:
-			velocity = direction.normalized() * DASH_SPEED
-		else:
-			velocity = direction.normalized() * SPEED
+	if is_dashing:
+		velocity = dash_direction * DASH_SPEED
 	else:
-		velocity = Vector2.ZERO
+		if direction != Vector2.ZERO:
+			velocity = direction.normalized() * SPEED
+		else:
+			velocity = Vector2.ZERO
 
 	# Move the character.
 	move_and_slide()
