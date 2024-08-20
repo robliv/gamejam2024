@@ -25,6 +25,7 @@ func _ready() -> void:
 	light.texture_scale += (0.2 * Globals.flashlight_size)
 	light.offset += Vector2((6.2 * Globals.flashlight_size), 0)
 	lightDetectionArea.scale += Vector2((0.2 * Globals.flashlight_size), (0.2 * Globals.flashlight_size))
+	light.position += Vector2((6.2 * Globals.flashlight_size), 0)
 	
 	# Create and start the timer
 	state_timer = Timer.new()

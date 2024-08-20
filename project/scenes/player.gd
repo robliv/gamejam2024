@@ -16,11 +16,14 @@ var dash_direction = Vector2.ZERO
 var enflate: AudioStreamPlayer2D
 var deflate: AudioStreamPlayer2D
 
+var particles: CPUParticles2D
+
 signal request_endgame
 
 func _ready() -> void:
 	enflate = $Enflate
 	deflate = $Deflate
+	particles = $CPUParticles2D
 
 func _physics_process(delta: float) -> void:
 	
@@ -43,6 +46,9 @@ func _physics_process(delta: float) -> void:
 		current_size -= 1
 		dash_time_left = DASH_DURATION
 		dash_direction = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()  # Generate a random direction
+		var opposite_direction = -dash_direction
+		particles.direction = opposite_direction
+		particles.emitting = true
 		deflate.play()
 
 	if is_dashing:

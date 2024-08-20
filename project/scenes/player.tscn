@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://hmgof7efpjlm"]
+[gd_scene load_steps=7 format=3 uid="uid://hmgof7efpjlm"]
 
 [ext_resource type="Texture2D" uid="uid://bnmvvuy3ruxys" path="res://assets/player.png" id="1_03k67"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_6gjkk"]
 [ext_resource type="AudioStream" uid="uid://dtvcjnoqymcgg" path="res://assets/blow-[AudioTrimmer.com].wav" id="3_gt6bt"]
 [ext_resource type="AudioStream" uid="uid://db3hl4icfhjol" path="res://assets/balloon-deflate-83447-[AudioTrimmer.com].mp3" id="4_36qul"]
+[ext_resource type="Texture2D" uid="uid://bsm2djpecvb3x" path="res://assets/air.png" id="5_63d07"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ux2b3"]
 radius = 16.0
@@ -26,3 +27,20 @@ panning_strength = 2.0
 
 [node name="Deflate" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("4_36qul")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Player"]
+emitting = false
+amount = 60
+lifetime = 2.0
+one_shot = true
+speed_scale = 34.91
+explosiveness = 0.74
+texture = ExtResource("5_63d07")
+emission_shape = 1
+emission_sphere_radius = 28.4
+spread = 50.46
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.05
+scale_amount_max = 0.2
