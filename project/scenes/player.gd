@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 const SPEED = 300.0
 const DASH_SPEED = 900.0  # Dash speed is higher than normal speed
 const DASH_DURATION = 0.3
@@ -76,4 +78,9 @@ func scale_character() -> void:
 func end_game():
 	Globals.set_game_result_won(true)
 	print("setting game_result_win to true")
+	emit_signal("request_endgame")
+	
+func game_over():
+	Globals.set_game_result_won(false)
+	print("setting game_result_win to false")
 	emit_signal("request_endgame")

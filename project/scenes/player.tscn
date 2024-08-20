@@ -10,19 +10,19 @@ radius = 16.0
 
 [node name="player" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="."]
 script = ExtResource("1_6gjkk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_ux2b3")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_03k67")
 
-[node name="Enflate" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="Enflate" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("3_gt6bt")
 volume_db = 5.0
 panning_strength = 2.0
 
-[node name="Deflate" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="Deflate" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("4_36qul")

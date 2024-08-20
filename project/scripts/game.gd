@@ -22,7 +22,7 @@ func _ready():
 	start_button = $StartingInfo/Start
 	start_button.pressed.connect(self._on_start_game_pressed)
 	
-	var player = $GameRoot/player/CharacterBody2D
+	var player = $GameRoot/player/Player
 	player.request_endgame.connect(_on_request_endgame)
 	
 	if(!Globals.info_showed):

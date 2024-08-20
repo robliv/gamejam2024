@@ -13,13 +13,26 @@ var speed: float = 100.0
 # Timer to control the state change interval
 var state_timer: Timer
 
+var light: PointLight2D
+var lightDetectionArea: CollisionPolygon2D
+
 func _ready() -> void:
+	light = $PointLight2D
+	lightDetectionArea = $Area2D/CollisionPolygon2D
+	
+	speed += (Globals.enemy_speed * 50)
+	
+	light.texture_scale += (0.2 * Globals.flashlight_size)
+	light.offset += Vector2((6.2 * Globals.flashlight_size), 0)
+	lightDetectionArea.scale += Vector2((0.2 * Globals.flashlight_size), (0.2 * Globals.flashlight_size))
+	
 	# Create and start the timer
 	state_timer = Timer.new()
 	state_timer.wait_time = 1.0
 	state_timer.timeout.connect(_on_state_timer_timeout)
 	add_child(state_timer)
 	state_timer.start()
+	
 
 func _physics_process(delta: float) -> void:
 	# Handle enemy movement based on the current state
@@ -50,17 +63,18 @@ func _on_state_timer_timeout() -> void:
 	
 	if current_state == EnemyState.CHANGE_DIRECTION:
 		# Randomly choose a new direction and rotate the enemy accordingly
-		var random_direction = randi() % 4
-		match random_direction:
-			0:
-				direction = Vector2.RIGHT
-				rotation_degrees = 0
-			1:
-				direction = Vector2.LEFT
-				rotation_degrees = 180
-			2:
-				direction = Vector2.UP
-				rotation_degrees = -90
-			3:
-				direction = Vector2.DOWN
-				rotation_degrees = 90
+		var random_angle_degrees = randi() % 360
+		var random_angle_radians = deg_to_rad(random_angle_degrees)
+	
+		# Calculate the direction vector based on the random angle
+		direction = Vector2(cos(random_angle_radians), sin(random_angle_radians)).normalized()
+	
+		# Set the rotation to the random angle
+		rotation_degrees = random_angle_degrees
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.name == "Player":  # Replace with the actual name of your player node
+		print("Player detected by flashlight!")
+		var player = body as Player
+		player.game_over()

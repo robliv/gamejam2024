@@ -1,8 +1,8 @@
 extends Node
 
 var current_level: int = 1
-var flashlight_size: int = 1
-var enemy_speed: int = 1
+var flashlight_size: int = 0
+var enemy_speed: int = 0
 var game_result_win: bool
 var info_showed: bool = false
 var current_ballon_size: int
@@ -12,8 +12,8 @@ var enflate_pressed: bool = false
 
 func reset_game_data():
 	current_level = 1
-	flashlight_size = 1.0
-	enemy_speed = 1.0
+	flashlight_size = 0.0
+	enemy_speed = 0.0
 	current_ballon_size = 0
 
 # Function to advance to the next level
