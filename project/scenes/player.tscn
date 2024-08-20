@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://hmgof7efpjlm"]
+[gd_scene load_steps=9 format=3 uid="uid://hmgof7efpjlm"]
 
 [ext_resource type="Texture2D" uid="uid://bnmvvuy3ruxys" path="res://assets/player.png" id="1_03k67"]
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_6gjkk"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bgd4rqdjaysgt" path="res://scenes/timer_circle.tscn" id="5_nnsnx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ux2b3"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m36iv"]
 radius = 16.0
 
 [node name="player" type="Node2D"]
@@ -52,3 +55,8 @@ initial_velocity_min = 20.0
 initial_velocity_max = 50.0
 scale_amount_min = 0.05
 scale_amount_max = 0.2
+
+[node name="PlayerArea" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerArea"]
+shape = SubResource("CircleShape2D_m36iv")

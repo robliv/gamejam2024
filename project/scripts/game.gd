@@ -2,14 +2,21 @@ extends Control
 
 const MAIN_MENU_SCENE_PATH = "res://scenes/menu.tscn"
 const POST_GAME_SCENE_PATH = "res://scenes/post_game_screen.tscn"
-
+const PICKUP_SCENE_PATH = "res://scenes/pickup.tscn"
+var PickupScene = preload(PICKUP_SCENE_PATH)
 var menu_button
 var start_button
 var starting_info
 
+var spawn_min_x = 100
+var spawn_max_x = 800
+var spawn_min_y = 100
+var spawn_max_y = 600
+
 signal request_level
 
 func _ready():
+	place_pickup_randomly()
 	$CurrentLevelLabel.text = "LEVEL: " + str(Globals.current_level)
 	$FlashlightSizeLabel.text = "FLASHLIGHT SIZE: " + str(Globals.flashlight_size)
 	$EnemySpeedLabel.text = "ENEMY SPEED: " + str(Globals.enemy_speed)
@@ -32,6 +39,7 @@ func _ready():
 	else:
 		starting_info.visible = false
 	
+	
 func _on_menu_button_pressed():
 	print("Menu button was pressed")
 	Globals.reset_game_data()
@@ -46,3 +54,22 @@ func _on_start_game_pressed():
 	starting_info.visible = false
 	Globals.set_info_showed()
 	Globals.game_paused = false
+
+func place_pickup_randomly():
+	# Generate a random position within the defined area
+	var random_position = Vector2(
+		randi_range(spawn_min_x, spawn_max_x),
+		randi_range(spawn_min_y, spawn_max_y)
+	)
+	# Instantiate the pickup
+	var pickup_instance = PickupScene.instantiate()
+	add_child(pickup_instance)
+	# Set the position of the pickup to the random position
+	pickup_instance.position = random_position
+	# Connect signal
+	pickup_instance.picked_up.connect(_on_item_pickup)
+	
+func _on_item_pickup():
+	print("Item was picked up")
+	place_pickup_randomly()
+	$GameRoot/player/Player.scale_character()

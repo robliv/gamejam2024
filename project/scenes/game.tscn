@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1y4aagwioo61"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
-[ext_resource type="PackedScene" uid="uid://btfdqd48x8bi1" path="res://scenes/game_room.tscn" id="2_7c3w0"]
+[ext_resource type="PackedScene" path="res://scenes/game_room.tscn" id="2_7c3w0"]
 [ext_resource type="PackedScene" uid="uid://hmgof7efpjlm" path="res://scenes/player.tscn" id="3_3iinj"]
 [ext_resource type="PackedScene" uid="uid://bkvid3hir38ru" path="res://scenes/guard.tscn" id="3_j82o4"]
 [ext_resource type="AudioStream" uid="uid://dw4p4ssjgnhb3" path="res://assets/Dark sneaky ambient.mp3" id="5_jtqwn"]

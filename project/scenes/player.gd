@@ -72,8 +72,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	# Scale the character if spacebar is pressed.
-	if Input.is_action_just_pressed("ui_accept"):  # Default key is spacebar.
-		scale_character()
+	#if Input.is_action_just_pressed("ui_accept"):  # Default key is spacebar.
+		#scale_character()
 
 func scale_character() -> void:
 	enflate.play()
