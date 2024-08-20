@@ -35,6 +35,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_shift") && Globals.current_ballon_size > 0:  # Replace "ui_shift" with your dash key
 		is_dashing = true
 		Globals.current_ballon_size -= 1
+		current_size -= 1
 		dash_time_left = DASH_DURATION
 		deflate.play()
 
