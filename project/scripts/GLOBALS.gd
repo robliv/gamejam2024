@@ -13,6 +13,11 @@ var player_exited_light: bool = false
 
 var game_over: bool = false
 
+
+func reset_enemy_data():
+	flashlight_size = 0.0
+	enemy_speed = 0.0
+
 func reset_game_data():
 	current_level = 1
 	flashlight_size = 0.0
