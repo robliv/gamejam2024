@@ -16,9 +16,14 @@ var state_timer: Timer
 var light: PointLight2D
 var lightDetectionArea: CollisionPolygon2D
 
+var alertAudio: AudioStreamPlayer2D
+
+var detected: bool = false
+
 func _ready() -> void:
 	light = $PointLight2D
 	lightDetectionArea = $Area2D/CollisionPolygon2D
+	alertAudio = $AudioStreamPlayer2D
 	
 	speed += (Globals.enemy_speed * 50)
 	
@@ -46,7 +51,7 @@ func _physics_process(delta: float) -> void:
 			# Check for collisions and react accordingly
 			if is_on_wall():
 				# If the enemy hits a wall, change to stand or change direction
-				current_state = EnemyState.STAND  # or EnemyState.CHANGE_DIRECTION
+				current_state = EnemyState.CHANGE_DIRECTION  # or EnemyState.CHANGE_DIRECTION
 
 		EnemyState.STAND:
 			# Do nothing, the enemy stands still
@@ -58,7 +63,12 @@ func _physics_process(delta: float) -> void:
 
 # Called when the timer times out
 func _on_state_timer_timeout() -> void:
+	
 	# Randomly select the next state
+	if detected:
+		current_state = EnemyState.STAND
+		return
+	
 	var random_state = randi() % 3
 	current_state = random_state
 	
@@ -79,6 +89,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		light.color = Color.RED
 		var player = body as Player
 		player.enter_light()
+		alertAudio.play()
+		detected = true
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
@@ -86,3 +98,5 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		light.color = Color.WHITE
 		var player = body as Player
 		player.exit_light()
+		alertAudio.stop()
+		detected = false
