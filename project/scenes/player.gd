@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const DASH_SPEED = 900.0  # Dash speed is higher than normal speed
-const DASH_DURATION = 0.2
-const SCALE_FACTOR = 1.2 # Adjust this factor to scale the character up or down.
+const DASH_DURATION = 0.3
+const SCALE_FACTOR = 1.5 # Adjust this factor to scale the character up or down.
 const MAX_SIZE = 5
 
 var current_size = 1
