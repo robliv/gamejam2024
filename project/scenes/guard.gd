@@ -34,7 +34,14 @@ func _ready() -> void:
 	
 	# Create and start the timer
 	state_timer = Timer.new()
-	state_timer.wait_time = 1.0
+	
+	if current_state == EnemyState.MOVE_FORWARD:
+		state_timer.wait_time = 2
+	elif current_state == EnemyState.STAND:
+		state_timer.wait_time = 0.1
+	else:
+		state_timer.wait_time = randf_range(0.1, 0.5)
+	
 	state_timer.timeout.connect(_on_state_timer_timeout)
 	add_child(state_timer)
 	state_timer.start()
@@ -50,8 +57,8 @@ func _physics_process(delta: float) -> void:
 			
 			# Check for collisions and react accordingly
 			if is_on_wall():
-				# If the enemy hits a wall, change to stand or change direction
-				current_state = EnemyState.CHANGE_DIRECTION  # or EnemyState.CHANGE_DIRECTION
+				direction = -direction
+				rotation_degrees = direction.angle() * 180 / PI
 
 		EnemyState.STAND:
 			# Do nothing, the enemy stands still
@@ -91,6 +98,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		player.enter_light()
 		alertAudio.play()
 		detected = true
+	elif body.name == "TileMapLayer":
+		current_state = EnemyState.CHANGE_DIRECTION
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:

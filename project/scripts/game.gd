@@ -3,16 +3,41 @@ extends Control
 const MAIN_MENU_SCENE_PATH = "res://scenes/menu.tscn"
 const POST_GAME_SCENE_PATH = "res://scenes/post_game_screen.tscn"
 
+const ENEMY_PREFAB = "res://scenes/guard.tscn"
+
 var menu_button
 var start_button
 var starting_info
 
+var position_range = Rect2(Vector2(50, 50), Vector2(600, 500))
+
 signal request_level
 
 func _ready():
+	if Globals.current_level % 5 == 0:
+		Globals.reset_enemy_data()
+	
 	$CurrentLevelLabel.text = "LEVEL: " + str(Globals.current_level)
 	$FlashlightSizeLabel.text = "FLASHLIGHT SIZE: " + str(Globals.flashlight_size)
 	$EnemySpeedLabel.text = "ENEMY SPEED: " + str(Globals.enemy_speed)
+	
+	var enemy_scene: PackedScene = load(ENEMY_PREFAB)
+	
+	var enemey_count = (Globals.current_level / 5) + 1;
+	
+	print("enemy count = ", enemey_count)
+	
+	for n in enemey_count:
+		var instance: Node2D = enemy_scene.instantiate() as Node2D
+	
+		# Set a random position
+		instance.position = Vector2(
+			randf_range(position_range.position.x, position_range.position.x + position_range.size.x),
+			randf_range(position_range.position.y, position_range.position.y + position_range.size.y)
+		)
+	
+		# Add the instance to the current node (which is the parent)
+		$GameRoot.add_child(instance)
 	
 	starting_info = $StartingInfo
 	
