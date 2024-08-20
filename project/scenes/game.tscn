@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1y4aagwioo61"]
+[gd_scene load_steps=10 format=3 uid="uid://d1y4aagwioo61"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
 [ext_resource type="PackedScene" uid="uid://btfdqd48x8bi1" path="res://scenes/game_room.tscn" id="2_7c3w0"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://ytjwwf6n7wy5" path="res://assets/goal.png" id="7_8fh50"]
 [ext_resource type="Texture2D" uid="uid://eevxrk60qr85" path="res://assets/empty.png" id="8_h02ov"]
 [ext_resource type="Script" path="res://scenes/ballon_indicator.gd" id="9_khcqq"]
-[ext_resource type="Script" path="res://scenes/enflate_timer.gd" id="10_pgtao"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -107,17 +106,3 @@ position = Vector2(1081, 68)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("8_h02ov")
 script = ExtResource("9_khcqq")
-
-[node name="Control" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 1022.0
-offset_top = 11.0
-offset_right = 1062.0
-offset_bottom = 51.0
-scale = Vector2(3, 3)
-script = ExtResource("10_pgtao")
-circle_duration = 1.0
-circle_radius = 15.0
-
-[node name="Timer" type="Timer" parent="Control"]
-autostart = true

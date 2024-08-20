@@ -76,6 +76,13 @@ func _on_state_timer_timeout() -> void:
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":  # Replace with the actual name of your player node
-		print("Player detected by flashlight!")
+		light.color = Color.RED
 		var player = body as Player
-		player.game_over()
+		player.enter_light()
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.name == "Player":  # Replace with the actual name of your player node
+		light.color = Color.WHITE
+		var player = body as Player
+		player.exit_light()

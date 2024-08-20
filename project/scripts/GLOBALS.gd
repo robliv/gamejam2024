@@ -7,14 +7,20 @@ var game_result_win: bool
 var info_showed: bool = false
 var current_ballon_size: int
 var game_paused: bool
-var enflate_cooldown: bool = true
-var enflate_pressed: bool = false
+
+var player_enetered_light: bool = false
+var player_exited_light: bool = false
+
+var game_over: bool = false
 
 func reset_game_data():
 	current_level = 1
 	flashlight_size = 0.0
 	enemy_speed = 0.0
 	current_ballon_size = 0
+	game_over = false
+	player_enetered_light = false
+	player_exited_light = false
 
 # Function to advance to the next level
 func advance_level():

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgd4rqdjaysgt"]
+
+[ext_resource type="Script" path="res://scenes/enflate_timer.gd" id="1_dkbdk"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_dkbdk")
+circle_duration = 1.0
+circle_radius = 15.0
+
+[node name="Timer" type="Timer" parent="."]

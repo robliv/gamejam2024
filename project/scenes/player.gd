@@ -18,6 +18,8 @@ var deflate: AudioStreamPlayer2D
 
 var particles: CPUParticles2D
 
+var lightAreasEntered: int = 0
+
 signal request_endgame
 
 func _ready() -> void:
@@ -29,15 +31,16 @@ func _physics_process(delta: float) -> void:
 	
 	# end current game level if max size is reached
 	if(current_size>MAX_SIZE):
-		end_game()
+		end_game(true)
 		
 	# Get the input direction and handle the movement.
 	var direction := Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	)
+	
+	
 
-	# Handle dash
 	# Handle dash
 	if Input.is_action_just_pressed("ui_shift") and Globals.current_ballon_size > 0:  # Replace "ui_shift" with your dash key
 		is_dashing = true
@@ -73,20 +76,24 @@ func _physics_process(delta: float) -> void:
 		scale_character()
 
 func scale_character() -> void:
-	if !Globals.enflate_cooldown:
-		enflate.play()
-		# Scale the character by the scale factor.
-		self.scale *= SCALE_FACTOR
-		current_size += 1
-		Globals.current_ballon_size += 1
-		Globals.enflate_pressed = true
+	enflate.play()
+	# Scale the character by the scale factor.
+	self.scale *= SCALE_FACTOR
+	current_size += 1
+	Globals.current_ballon_size += 1
 
-func end_game():
-	Globals.set_game_result_won(true)
-	print("setting game_result_win to true")
+func _process(delta: float) -> void:
+	if Globals.game_over:
+		end_game(false)
+
+func end_game(win: bool):
+	Globals.set_game_result_won(win)
 	emit_signal("request_endgame")
 	
-func game_over():
-	Globals.set_game_result_won(false)
-	print("setting game_result_win to false")
-	emit_signal("request_endgame")
+func enter_light():
+	Globals.player_enetered_light = true
+	lightAreasEntered += 1
+	
+func exit_light():
+	Globals.player_exited_light = true
+	lightAreasEntered -= 1
