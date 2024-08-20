@@ -19,6 +19,9 @@ var position_range = Rect2(Vector2(50, 50), Vector2(600, 500))
 
 signal request_level
 
+@onready var progress_bar = $Control/ProgressBar
+
+
 func _ready():
 	place_pickup_randomly()
 	if Globals.current_level % 5 == 0:
@@ -30,9 +33,7 @@ func _ready():
 	
 	var enemy_scene: PackedScene = load(ENEMY_PREFAB)
 	
-	var enemey_count = (Globals.current_level / 5) + 1;
-	
-	print("enemy count = ", enemey_count)
+	var enemey_count = (Globals.current_level / 5) + 2;
 	
 	for n in enemey_count:
 		var instance: Node2D = enemy_scene.instantiate() as Node2D
@@ -63,7 +64,8 @@ func _ready():
 		Globals.game_paused = true
 	else:
 		starting_info.visible = false
-	
+		
+	$Timer.start()
 	
 func _on_menu_button_pressed():
 	print("Menu button was pressed")
@@ -98,3 +100,17 @@ func _on_item_pickup():
 	print("Item was picked up")
 	place_pickup_randomly()
 	$GameRoot/player/Player.scale_character()
+
+
+func _on_timer_timeout() -> void:
+	# Decrease the ProgressBar value by 1
+	progress_bar.value -= 1
+	
+	if progress_bar.value < 10:
+		$Heartbeat.play()
+		$Heartbeat.pitch_scale += 0.01
+	# Optionally, check if the value has reached zero
+	if progress_bar.value <= 0:
+		# Stop the timer if the value is 0 or below
+		$Timer.stop()
+		_on_request_endgame()

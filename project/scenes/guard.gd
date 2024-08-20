@@ -20,12 +20,16 @@ var alertAudio: AudioStreamPlayer2D
 
 var detected: bool = false
 
+var target_rotation_degrees: float
+var rotation_speed: float = 100.0 
+
 func _ready() -> void:
 	light = $PointLight2D
 	lightDetectionArea = $Area2D/CollisionPolygon2D
 	alertAudio = $AudioStreamPlayer2D
 	
 	speed += (Globals.enemy_speed * 50)
+	rotation_speed += (Globals.enemy_speed * 50)
 	
 	light.texture_scale += (0.2 * Globals.flashlight_size)
 	light.offset += Vector2((6.2 * Globals.flashlight_size), 0)
@@ -35,13 +39,7 @@ func _ready() -> void:
 	# Create and start the timer
 	state_timer = Timer.new()
 	
-	if current_state == EnemyState.MOVE_FORWARD:
-		state_timer.wait_time = 2
-	elif current_state == EnemyState.STAND:
-		state_timer.wait_time = 0.1
-	else:
-		state_timer.wait_time = randf_range(0.1, 0.5)
-	
+	state_timer.wait_time = 0.5
 	state_timer.timeout.connect(_on_state_timer_timeout)
 	add_child(state_timer)
 	state_timer.start()
@@ -65,12 +63,23 @@ func _physics_process(delta: float) -> void:
 			pass
 
 		EnemyState.CHANGE_DIRECTION:
-			# Direction change is handled in the timeout function
-			pass
+			var angle_difference = wrapf(target_rotation_degrees - rotation_degrees, -180.0, 180.0)
+
+			# Determine the step to rotate based on the rotation speed and delta time
+			var step = rotation_speed * delta
+
+			# If the angle difference is small, snap to the target
+			if abs(angle_difference) <= step:
+				rotation_degrees = target_rotation_degrees
+			else:
+				# Rotate towards the target angle, considering the shortest path
+				rotation_degrees += sign(angle_difference) * step
+
+			# Update the direction vector based on the current rotation
+			direction = Vector2(cos(deg_to_rad(rotation_degrees)), sin(deg_to_rad(rotation_degrees))).normalized()
 
 # Called when the timer times out
 func _on_state_timer_timeout() -> void:
-	
 	# Randomly select the next state
 	if detected:
 		current_state = EnemyState.STAND
@@ -80,15 +89,12 @@ func _on_state_timer_timeout() -> void:
 	current_state = random_state
 	
 	if current_state == EnemyState.CHANGE_DIRECTION:
-		# Randomly choose a new direction and rotate the enemy accordingly
-		var random_angle_degrees = randi() % 360
-		var random_angle_radians = deg_to_rad(random_angle_degrees)
-	
-		# Calculate the direction vector based on the random angle
-		direction = Vector2(cos(random_angle_radians), sin(random_angle_radians)).normalized()
-	
-		# Set the rotation to the random angle
-		rotation_degrees = random_angle_degrees
+		target_rotation_degrees = randi() % 360
+		state_timer.wait_time = randf_range(1, 2)
+	elif current_state == EnemyState.STAND:
+		state_timer.wait_time = 0.1
+	elif current_state == EnemyState.MOVE_FORWARD:
+		state_timer.wait_time = randf_range(1, 2)
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

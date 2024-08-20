@@ -38,6 +38,7 @@ offset_top = -29.0
 offset_right = 10.0
 offset_bottom = 11.0
 scale = Vector2(1.5, 1.5)
+circle_duration = 0.5
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="Player"]
 emitting = false

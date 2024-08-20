@@ -1,13 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1y4aagwioo61"]
+[gd_scene load_steps=12 format=3 uid="uid://d1y4aagwioo61"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
-[ext_resource type="PackedScene" path="res://scenes/game_room.tscn" id="2_7c3w0"]
+[ext_resource type="PackedScene" uid="uid://btfdqd48x8bi1" path="res://scenes/game_room.tscn" id="2_7c3w0"]
 [ext_resource type="PackedScene" uid="uid://hmgof7efpjlm" path="res://scenes/player.tscn" id="3_3iinj"]
 [ext_resource type="AudioStream" uid="uid://dw4p4ssjgnhb3" path="res://assets/Dark sneaky ambient.mp3" id="5_jtqwn"]
 [ext_resource type="Texture2D" uid="uid://cg2wpq24gff" path="res://assets/controls.png" id="6_qw7v8"]
 [ext_resource type="Texture2D" uid="uid://ytjwwf6n7wy5" path="res://assets/goal.png" id="7_8fh50"]
 [ext_resource type="Texture2D" uid="uid://eevxrk60qr85" path="res://assets/empty.png" id="8_h02ov"]
+[ext_resource type="AudioStream" uid="uid://b65fhbkvumu7x" path="res://assets/heartbeat-sound-effect-111218.mp3" id="9_8yuov"]
 [ext_resource type="Script" path="res://scenes/ballon_indicator.gd" id="9_khcqq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skhu4"]
+bg_color = Color(0.980586, 0.455927, 0.0988782, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ofglh"]
+bg_color = Color(0.997182, 0.648832, 0.470819, 1)
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -78,6 +85,27 @@ text = "ENEMY SPEED: X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 498.0
+offset_top = 200.0
+offset_right = 538.0
+offset_bottom = 240.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+custom_minimum_size = Vector2(600, 25)
+layout_mode = 0
+offset_left = -228.0
+offset_top = -180.0
+offset_right = 372.0
+offset_bottom = -153.0
+theme_override_styles/background = SubResource("StyleBoxFlat_skhu4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ofglh")
+max_value = 30.0
+step = 1.0
+value = 30.0
+show_percentage = false
+
 [node name="StartingInfo" type="Node2D" parent="."]
 
 [node name="Controls" type="Sprite2D" parent="StartingInfo"]
@@ -103,3 +131,15 @@ position = Vector2(1081, 68)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("8_h02ov")
 script = ExtResource("9_khcqq")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Heartbeat" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_8yuov")
+volume_db = 24.0
+max_distance = 4000.0
+attenuation = 0.267943
+panning_strength = 1.89
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
