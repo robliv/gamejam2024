@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1y4aagwioo61"]
+[gd_scene load_steps=11 format=3 uid="uid://d1y4aagwioo61"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_fkfh4"]
-[ext_resource type="PackedScene" path="res://scenes/game_room.tscn" id="2_7c3w0"]
+[ext_resource type="PackedScene" uid="uid://btfdqd48x8bi1" path="res://scenes/game_room.tscn" id="2_7c3w0"]
 [ext_resource type="PackedScene" uid="uid://hmgof7efpjlm" path="res://scenes/player.tscn" id="3_3iinj"]
-[ext_resource type="PackedScene" path="res://scenes/guard.tscn" id="3_j82o4"]
+[ext_resource type="PackedScene" uid="uid://bkvid3hir38ru" path="res://scenes/guard.tscn" id="3_j82o4"]
 [ext_resource type="AudioStream" uid="uid://dw4p4ssjgnhb3" path="res://assets/Dark sneaky ambient.mp3" id="5_jtqwn"]
+[ext_resource type="Texture2D" uid="uid://cg2wpq24gff" path="res://assets/controls.png" id="6_qw7v8"]
+[ext_resource type="Texture2D" uid="uid://ytjwwf6n7wy5" path="res://assets/goal.png" id="7_8fh50"]
+[ext_resource type="Texture2D" uid="uid://eevxrk60qr85" path="res://assets/empty.png" id="8_h02ov"]
+[ext_resource type="Script" path="res://scenes/ballon_indicator.gd" id="9_khcqq"]
+[ext_resource type="Script" path="res://scenes/enflate_timer.gd" id="10_pgtao"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -29,10 +34,10 @@ position = Vector2(580, 329)
 [node name="GameRoom" parent="GameRoot" instance=ExtResource("2_7c3w0")]
 
 [node name="player" parent="GameRoot" instance=ExtResource("3_3iinj")]
-position = Vector2(221, 164)
+position = Vector2(969, 329)
 
 [node name="Guard" parent="GameRoot" instance=ExtResource("3_j82o4")]
-position = Vector2(349, 324)
+position = Vector2(87, 322)
 scale = Vector2(3, 3)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
@@ -41,36 +46,78 @@ autoplay = true
 
 [node name="MenuButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 9.0
-offset_top = -1.0
-offset_right = 122.0
-offset_bottom = 30.0
+offset_left = 16.0
+offset_top = 17.0
+offset_right = 129.0
+offset_bottom = 48.0
 text = "Quit To Menu"
 
 [node name="CurrentLevelLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 127.0
-offset_top = 1.0
-offset_right = 205.0
-offset_bottom = 30.0
+offset_left = 15.0
+offset_top = 47.0
+offset_right = 93.0
+offset_bottom = 76.0
 text = "LEVEL X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FlashlightSizeLabel" type="Label" parent="."]
-offset_left = 217.0
-offset_top = 2.0
-offset_right = 348.0
-offset_bottom = 31.0
+layout_mode = 0
+offset_left = 23.0
+offset_top = 74.0
+offset_right = 173.0
+offset_bottom = 103.0
 text = "FLASHLIGHT SIZE: X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="EnemySpeedLabel" type="Label" parent="."]
-offset_left = 393.0
-offset_top = 2.0
-offset_right = 524.0
-offset_bottom = 31.0
+layout_mode = 0
+offset_left = 21.0
+offset_top = 101.0
+offset_right = 152.0
+offset_bottom = 130.0
 text = "ENEMY SPEED: X"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StartingInfo" type="Node2D" parent="."]
+
+[node name="Controls" type="Sprite2D" parent="StartingInfo"]
+position = Vector2(586, 275)
+scale = Vector2(2, 1.867)
+texture = ExtResource("6_qw7v8")
+
+[node name="Goal" type="Sprite2D" parent="StartingInfo"]
+position = Vector2(572, 163)
+scale = Vector2(2, 2)
+texture = ExtResource("7_8fh50")
+
+[node name="Start" type="Button" parent="StartingInfo"]
+process_mode = 2
+offset_left = 500.0
+offset_top = 422.0
+offset_right = 600.0
+offset_bottom = 472.0
+text = "Start "
+
+[node name="BallonIndicator" type="Sprite2D" parent="."]
+position = Vector2(1081, 68)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_h02ov")
+script = ExtResource("9_khcqq")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1022.0
+offset_top = 11.0
+offset_right = 1062.0
+offset_bottom = 51.0
+scale = Vector2(3, 3)
+script = ExtResource("10_pgtao")
+circle_duration = 5.0
+circle_radius = 15.0
+
+[node name="Timer" type="Timer" parent="Control"]
+autostart = true

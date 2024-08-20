@@ -16,7 +16,7 @@ var state_timer: Timer
 func _ready() -> void:
 	# Create and start the timer
 	state_timer = Timer.new()
-	state_timer.wait_time = 2.0
+	state_timer.wait_time = 1.0
 	state_timer.timeout.connect(_on_state_timer_timeout)
 	add_child(state_timer)
 	state_timer.start()

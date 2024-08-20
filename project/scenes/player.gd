@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const SCALE_FACTOR = 1.2 # Adjust this factor to scale the character up or down.
-const MAX_SIZE = 9
+const MAX_SIZE = 5
 
 var current_size = 1
 
@@ -39,10 +39,13 @@ func _physics_process(delta: float) -> void:
 		scale_character()
 
 func scale_character() -> void:
-	audio.play()
-	# Scale the character by the scale factor.
-	self.scale *= SCALE_FACTOR
-	current_size += 1
+	if !Globals.enflate_cooldown:
+		audio.play()
+		# Scale the character by the scale factor.
+		self.scale *= SCALE_FACTOR
+		current_size += 1
+		Globals.current_ballon_size += 1
+		Globals.enflate_pressed = true
 
 func end_game():
 	Globals.set_game_result_won(true)
